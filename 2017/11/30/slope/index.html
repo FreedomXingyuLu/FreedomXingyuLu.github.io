@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -95,13 +95,13 @@
 求Max{ave(a,b),1≤a,b≤N，且a≤b-F+1}，即求一段长度大于等于F且平均值最大的子串。
 范围：F≤N≤105。
 [分析]枚举">
-<meta property="og:image" content="freedomxingyulu.github.io/../../images/2018050501.svg">
-<meta property="og:image" content="freedomxingyulu.github.io/../../images/2018050502.svg">
-<meta property="og:image" content="freedomxingyulu.github.io/../../images/2018050503.svg">
-<meta property="og:image" content="freedomxingyulu.github.io/../../images/2018050504.svg">
-<meta property="og:image" content="freedomxingyulu.github.io/../../images/2018050505.svg">
-<meta property="og:image" content="freedomxingyulu.github.io/../../images/2018050503.svg">
-<meta property="og:updated_time" content="2018-05-13T02:15:24.655Z">
+<meta property="og:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050501.svg">
+<meta property="og:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050502.svg">
+<meta property="og:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050503.svg">
+<meta property="og:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050504.svg">
+<meta property="og:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050505.svg">
+<meta property="og:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050503.svg">
+<meta property="og:updated_time" content="2018-08-06T06:44:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="slope">
 <meta name="twitter:description" content="个人学习。
@@ -110,7 +110,7 @@
 求Max{ave(a,b),1≤a,b≤N，且a≤b-F+1}，即求一段长度大于等于F且平均值最大的子串。
 范围：F≤N≤105。
 [分析]枚举">
-<meta name="twitter:image" content="freedomxingyulu.github.io/../../images/2018050501.svg">
+<meta name="twitter:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050501.svg">
 
 
 
@@ -146,7 +146,7 @@
 
 
 
-  <title>slope | HelloWorld</title>
+  <title>slope | HelloWorld</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -165,7 +165,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -332,14 +332,14 @@
 <p><em>数据如下时</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1 3 8 4 2 6 8</div></pre></td></tr></table></figure>
 <p><em>即求之中的最大斜率</em></p>
-<p><img src="../../images/2018050501.svg" alt=""></p>
+<img src="/2017/11/30/slope/2018050501.svg" alt="p1" title="p1">
 <h6 id="构造下凸折线"><a href="#构造下凸折线" class="headerlink" title="[构造下凸折线]"></a>[构造下凸折线]</h6><p>有序化一下，规定对<em>i</em>&lt;<em>j</em>，只检查P<em>j</em>向P<em>i</em>的连线，对P<em>i</em>不检查与P<em>j</em>的连线。也就是说对任意一点，仅检查该点与在其前方的点的斜率。</p>
 <p>当我们考察一个点P<em>t</em>时，朴素的平方级算法依次选取t点之前的每一个被检查点<em>p</em>，考察直线<em>p-&gt;</em>P<em>t</em>的斜率。但仔细观察，若集合内存在三个点P<em>i</em>,P<em>j</em>,P<em>k</em>，且<em>i</em>&lt;<em>j</em>&lt;<em>k</em>，三个点成关系，P<em>j</em>点在直线P<em>i-&gt;</em>P<em>k</em>的上凸部分：k(P<em>i</em>,P<em>j</em>)&gt;k(P<em>j</em>,P<em>k</em>)，可以发现P<em>j</em>点是多余的。</p>
-<p><img src="../../images/2018050502.svg" alt=""></p>
+<img src="/2017/11/30/slope/2018050502.svg" alt="p2" title="p2">
 <p>若k(P<em>t</em>,P<em>j</em>)&gt; k(P<em>t</em>,P<em>i</em>)，那么可以看出，P<em>t</em>点一定要在直线P<em>i</em> P<em>j</em>的上方，即1号区域。同理若k(P<em>t</em>,P<em>j</em>)&gt; k(P<em>t</em>,P<em>k</em>)，那么P<em>t</em>点一定要在直线P<em>j</em>P<em>k</em>的下方，即的2号区域。</p>
 <p>综合上述两种情况，若P<em>t</em>P<em>j</em>的斜率同时大于P<em>t</em> P<em>i</em>和P<em>t</em>P<em>k</em>的，P<em>t</em>点一定要落在两阴影的重叠部分，但这部分显然不满足开始时<em>t</em>&gt;j的假设。于是，P<em>t</em>落在任何一个合法的位置时，P<em>t</em>P<em>j</em>的斜率要么小于P<em>t</em>P<em>i</em>，要么小于P<em>t</em>P<em>k</em>，即不可能成为最大值，因此P<em>j</em>点多余，完全可以删去。</p>
 <p>这个结论告诉我们，任何一个点P<em>t</em>的检查集合中，不可能存在一个对最优结果有贡献的上凸点，因此我们可以删去每一个上凸点，剩下的则是一个下凸折线。最后需要在这个下凸折线上找一点与P<em>t</em>点构成的直线斜率最大——显然这条直线是在与折线相切时斜率最大，如图所示。</p>
-<p><img src="../../images/2018050503.svg" alt=""></p>
+<img src="/2017/11/30/slope/2018050503.svg" alt="p3" title="p3">
 <p>以上来自《浅谈数形结合思想在信息学竞赛中的应用》周源</p>
 <h2 id="斜率优化"><a href="#斜率优化" class="headerlink" title="斜率优化"></a>斜率优化</h2><p>下面正式讲斜率优化。</p>
 <p>对于一类Dp方程式：f[i]=min(f[j]+a[i]∗b[j]+c[j]+d[i])  a[x],b[x],c[x],d[x]都为x的函数，且a单增。</p>
@@ -348,10 +348,10 @@
                        b    =-k   *     x  +  y   (y=kx+b)
 </code></pre><p>对于任意j可以表示为图像上一点J( b[j],c[j]+<strong>d[i]</strong>+f[j] )，目的是求出f[i],因为f[i]的值等于y=kx+b直线的截距。</p>
 <p>问题转化为：对于一条斜率k = a[i] 的直线（为什么将它作为斜率?），使其至少过一点J(即上文那个任意J点,j&lt;i)，使得该直线的截距最小(就是与y轴焦点的纵坐标值)。那么考虑哪些J点有望成为答案？</p>
-<p><img src="../../images/2018050504.svg" alt=""></p>
-<p><img src="../../images/2018050505.svg" alt=""></p>
+<img src="/2017/11/30/slope/2018050504.svg" alt="p4" title="p4">
+<img src="/2017/11/30/slope/2018050505.svg" alt="p5" title="p5">
 <p>因为a[i]单调递增，即斜率逐渐变大。所以可以维护一个下凸包。逐渐去除尾部</p>
-<p><img src="../../images/2018050503.svg" alt=""></p>
+<img src="/2017/11/30/slope/2018050503.svg" alt="p3" title="p3">
 <p>而加入的点用上面的方式去除不可能成为最优解的解。</p>
 <p>在代码实现“去除尾巴”和“清理头部”中，都是以判断斜率为标准,所以是叫斜率优化</p>
 <p>注意到了吗J( b[j],c[j]+<strong>d[i]</strong>+f[j] )那么每次d[i]都在变化。但在求斜率这个d[i]会被消去故不影响。</p>
@@ -478,7 +478,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -488,10 +488,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">8</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
-                
+                </a>
               </div>
             
 
@@ -500,7 +500,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -680,7 +680,24 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

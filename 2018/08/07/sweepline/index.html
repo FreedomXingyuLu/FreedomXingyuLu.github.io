@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="algorithm," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="扫描线和奇怪而又好玩的离散化。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sweepline">
+<meta property="og:url" content="freedomxingyulu.github.io/2018/08/07/sweepline/index.html">
+<meta property="og:site_name" content="HelloWorld">
+<meta property="og:description" content="扫描线和奇怪而又好玩的离散化。">
+<meta property="og:updated_time" content="2018-08-09T04:43:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sweepline">
+<meta name="twitter:description" content="扫描线和奇怪而又好玩的离散化。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="freedomxingyulu.github.io/2018/08/07/sweepline/"/>
+
+
+
+
+
+  <title>sweepline | HelloWorld</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HelloWorld</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="freedomxingyulu.github.io/2018/08/07/sweepline/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LuXingyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HelloWorld">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sweepline</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-07T14:18:16+08:00">
+                2018-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>扫描线和奇怪而又好玩的离散化。</p>
+<a id="more"></a>
+<h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>金闪闪随手画出了N个矩形，由于是随手为之，矩形与矩形之间会相交，也可能重叠与包含。请你帮他求出土地面积总和（重复覆盖的土地当然只算一次）。</p>
+<h4 id="输入数据"><a href="#输入数据" class="headerlink" title="输入数据"></a>输入数据</h4><p>第1行：一个正整数N，表示矩形的个数。</p>
+<p>接下来N行，每行4个整数，xi,yi,ai,bi  (xi,yi)表示矩形i的左下角坐标，ai表示竖直方向的边长，bi表示水平方向的边长。（x为竖直方向）</p>
+<h4 id="输出数据"><a href="#输出数据" class="headerlink" title="输出数据"></a>输出数据</h4><p>一个整数，表示矩形覆盖的土地面积总和。</p>
+<h4 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">archer.in</div><div class="line">5</div><div class="line">21 10 17 22</div><div class="line">18 32 7 6</div><div class="line">32 7 6 6</div><div class="line">22 0 7 5</div><div class="line">17 36 23 10</div><div class="line"></div><div class="line">archer.out</div><div class="line">685</div></pre></td></tr></table></figure>
+<h4 id="数据规模"><a href="#数据规模" class="headerlink" title="数据规模"></a>数据规模</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">30% N&lt;=100, 0&lt;=xi,yi&lt;=40,1&lt;=ai,bi&lt;=25</div><div class="line">100% N&lt;=10^5, 0&lt;=xi&lt;=10^6,0&lt;=yi&lt;=10^9,1&lt;=ai,bi&lt;=10^6</div></pre></td></tr></table></figure>
+<h4 id="source-amp-注释"><a href="#source-amp-注释" class="headerlink" title="source&amp;注释"></a>source&amp;注释</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cctype&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> NN 100005</span></div><div class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> &amp;x)</span></span>&#123;</div><div class="line">	x=<span class="number">0</span>;<span class="keyword">register</span> <span class="keyword">char</span> ch;</div><div class="line">	<span class="keyword">do</span> ch=getchar(); <span class="keyword">while</span>(!<span class="built_in">isdigit</span>(ch));</div><div class="line">	<span class="keyword">do</span>&#123;x=x*<span class="number">10</span>+ch-<span class="string">'0'</span>;ch=getchar();&#125; <span class="keyword">while</span>(<span class="built_in">isdigit</span>(ch));</div><div class="line">&#125;</div><div class="line"><span class="keyword">long</span> <span class="keyword">long</span> n;</div><div class="line"><span class="keyword">long</span> <span class="keyword">long</span> a[NN];</div><div class="line"></div><div class="line"><span class="keyword">struct</span> segtree&#123;</div><div class="line">	<span class="keyword">struct</span> tnode&#123;</div><div class="line">		<span class="keyword">long</span> <span class="keyword">long</span> sizetotal;<span class="keyword">long</span> <span class="keyword">long</span> sizenow;<span class="keyword">long</span> <span class="keyword">long</span> ok;</div><div class="line">	&#125;;</div><div class="line">	tnode tree[NN&lt;&lt;<span class="number">2</span>];</div><div class="line">	<span class="keyword">long</span> <span class="keyword">long</span> ql,qr,d;</div><div class="line">	<span class="keyword">long</span> <span class="keyword">long</span> tn;</div><div class="line">	</div><div class="line">	<span class="meta">#<span class="meta-keyword">define</span> M (l+r)&gt;&gt;1</span></div><div class="line">	<span class="meta">#<span class="meta-keyword">define</span> L x&lt;&lt;1</span></div><div class="line">	<span class="meta">#<span class="meta-keyword">define</span> R x&lt;&lt;1|1</span></div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">pushupforbuild</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> x)</span></span>&#123;</div><div class="line">		tree[x].sizetotal=tree[L].sizetotal+tree[R].sizetotal;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">void</span> _build(<span class="keyword">long</span> <span class="keyword">long</span> x,<span class="keyword">long</span> <span class="keyword">long</span> l,<span class="keyword">long</span> <span class="keyword">long</span> r)&#123;</div><div class="line">		<span class="keyword">if</span>(l==r) &#123;</div><div class="line">			tree[x].sizetotal=a[l];</div><div class="line">			<span class="keyword">return</span> ;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">long</span> <span class="keyword">long</span> MID=M;</div><div class="line">		_build(L,l,MID);</div><div class="line">		_build(R,MID+<span class="number">1</span>,r);</div><div class="line">		pushupforbuild(x);</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> n)</span></span>&#123;</div><div class="line">		tn=n;</div><div class="line">		_build(<span class="number">1</span>,<span class="number">1</span>,tn);</div><div class="line">	&#125;</div><div class="line">    </div><div class="line">    </div><div class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">pushup</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> x)</span></span>&#123;</div><div class="line">		<span class="keyword">if</span>(tree[x].ok!=<span class="number">0</span>) tree[x].sizenow=tree[x].sizetotal;<span class="comment">//整段覆盖，返回整段</span></div><div class="line">		<span class="keyword">else</span> tree[x].sizenow=tree[L].sizenow+tree[R].sizenow;<span class="comment">//返回左右子树之和</span></div><div class="line">	&#125;</div><div class="line">    </div><div class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">maintain</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> x,<span class="keyword">long</span> <span class="keyword">long</span> flag)</span></span>&#123;</div><div class="line">		tree[x].ok+=flag;<span class="comment">//进一次出一次，非负</span></div><div class="line">		pushup(x);</div><div class="line">		</div><div class="line">	&#125;</div><div class="line"></div><div class="line"></div><div class="line">	</div><div class="line">	</div><div class="line">	<span class="keyword">void</span> _change(<span class="keyword">long</span> <span class="keyword">long</span> x,<span class="keyword">long</span> <span class="keyword">long</span> l,<span class="keyword">long</span> <span class="keyword">long</span> r)&#123;</div><div class="line">		<span class="keyword">if</span>(qr&lt;l||ql&gt;r) <span class="keyword">return</span>;</div><div class="line">		<span class="keyword">if</span>(ql&lt;=l&amp;&amp;r&lt;=qr) &#123;</div><div class="line">			maintain(x,d);</div><div class="line">			<span class="keyword">return</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">long</span> <span class="keyword">long</span> MID=M;</div><div class="line">		_change(L,l,MID);</div><div class="line">		_change(R,MID+<span class="number">1</span>,r);</div><div class="line">		pushup(x);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">change</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> l,<span class="keyword">long</span> <span class="keyword">long</span> r,<span class="keyword">long</span> <span class="keyword">long</span> w)</span></span>&#123;</div><div class="line">		ql=l,qr=r,d=w;</div><div class="line">		_change(<span class="number">1</span>,<span class="number">1</span>,tn);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">query</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> tree[<span class="number">1</span>].sizenow;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;sgt;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> node&#123;</div><div class="line">	<span class="keyword">long</span> <span class="keyword">long</span> x,y,a,b;</div><div class="line">	<span class="keyword">long</span> <span class="keyword">long</span> down,up;</div><div class="line">&#125;data1[NN];</div><div class="line"></div><div class="line"><span class="keyword">struct</span> node2&#123;</div><div class="line">	node * n;</div><div class="line">	<span class="keyword">long</span> <span class="keyword">long</span> x;<span class="keyword">long</span> <span class="keyword">long</span> zuo;</div><div class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (node2 k)<span class="keyword">const</span>&#123;</div><div class="line">		<span class="keyword">return</span> x&lt;k.x;</div><div class="line">	&#125;</div><div class="line">&#125;data2[NN*<span class="number">2</span>];</div><div class="line"><span class="keyword">struct</span> node3&#123;</div><div class="line">	node *n;</div><div class="line">	<span class="keyword">long</span> <span class="keyword">long</span> y;<span class="keyword">long</span> <span class="keyword">long</span> xia;</div><div class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (node3 k)<span class="keyword">const</span>&#123;</div><div class="line">		<span class="keyword">return</span> y&lt;k.y;</div><div class="line">	&#125;</div><div class="line">&#125;data3[NN*<span class="number">2</span>];</div><div class="line"></div><div class="line"><span class="keyword">long</span> <span class="keyword">long</span> lasty,tot;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="comment">//freopen("data.in","r",stdin);</span></div><div class="line">	read(n);</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">long</span> <span class="keyword">long</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</div><div class="line">		<span class="keyword">long</span> <span class="keyword">long</span> x,y,a,b;</div><div class="line">		read(x),read(y),read(b),read(a);</div><div class="line">		data1[i]=(node)&#123;x,y,a,b,<span class="number">0</span>,<span class="number">0</span>&#125;;</div><div class="line">		data2[i*<span class="number">2</span>]=(node2)&#123;&amp;data1[i],x,<span class="number">1</span>&#125;;</div><div class="line">		data2[i*<span class="number">2</span>+<span class="number">1</span>]=(node2)&#123;&amp;data1[i],x+b,<span class="number">0</span>&#125;;</div><div class="line">		data3[i*<span class="number">2</span>]=(node3)&#123;&amp;data1[i],y,<span class="number">1</span>&#125;;</div><div class="line">		data3[i*<span class="number">2</span>+<span class="number">1</span>]=(node3)&#123;&amp;data1[i],y+a,<span class="number">0</span>&#125;;	</div><div class="line">	&#125;</div><div class="line">    <span class="comment">/*</span></div><div class="line">    	这边有data1，data2，data3.</div><div class="line">    	data1为原数据和up，down。up,down来存离散化后那块覆盖的最高块的编号和最低块的编号</div><div class="line">    	-</div><div class="line">    l=5	|</div><div class="line">    n=2	|</div><div class="line">    	-</div><div class="line">    l=3	|</div><div class="line">    n=1	|</div><div class="line">    	-</div><div class="line">   		data2为x、是不是左边、和只想data1的指针</div><div class="line">   		data3为y、是不是下边、和只想data1的指针（因为离散化时会改变up和down）</div><div class="line">    */</div><div class="line">	sort(data2,data2+<span class="number">2</span>*n);</div><div class="line">	sort(data3,data3+<span class="number">2</span>*n);</div><div class="line">	</div><div class="line">	lasty=data3[<span class="number">0</span>].y;tot=<span class="number">1</span>;</div><div class="line">	</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">long</span> <span class="keyword">long</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>*n;i++)&#123;</div><div class="line">		node3 &amp;k=data3[i];</div><div class="line">		<span class="keyword">if</span>(k.y!=lasty)&#123;</div><div class="line">			a[tot]=k.y-lasty;<span class="comment">//记录块大小</span></div><div class="line">			lasty=k.y;</div><div class="line">			tot++;</div><div class="line">		&#125;</div><div class="line">        <span class="comment">//记录它包含的块的最大值和最小值</span></div><div class="line">		<span class="keyword">if</span>(k.xia)&#123;</div><div class="line">			k.n-&gt;down=tot;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span>&#123;</div><div class="line">			k.n-&gt;up=tot<span class="number">-1</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">long</span> <span class="keyword">long</span> lastx=data2[<span class="number">0</span>].x;</div><div class="line">	<span class="keyword">long</span> <span class="keyword">long</span> ans=<span class="number">0</span>;</div><div class="line">	sgt.build(tot<span class="number">-1</span>);</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">long</span> <span class="keyword">long</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>*n;i++)&#123;</div><div class="line">		node2 &amp; k=data2[i];</div><div class="line">		<span class="keyword">if</span>(k.x!=lastx)&#123;</div><div class="line">			<span class="keyword">long</span> <span class="keyword">long</span> len=sgt.query();</div><div class="line">			<span class="keyword">long</span> <span class="keyword">long</span> kuan=k.x-lastx;</div><div class="line">			ans+=len*kuan;</div><div class="line">			lastx=k.x;</div><div class="line">		&#125;</div><div class="line">		sgt.change(k.n-&gt;down,k.n-&gt;up,k.zuo?<span class="number">1</span>:<span class="number">-1</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"%lld"</span>,ans);</div><div class="line">	</div><div class="line">	</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/algorithm/" rel="tag"># algorithm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/06/DP2/" rel="next" title="DP2">
+                <i class="fa fa-chevron-left"></i> DP2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/07/latex/" rel="prev" title="latex">
+                latex <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LuXingyu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入数据"><span class="nav-number">2.</span> <span class="nav-text">输入数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出数据"><span class="nav-number">3.</span> <span class="nav-text">输出数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#样例"><span class="nav-number">4.</span> <span class="nav-text">样例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据规模"><span class="nav-number">5.</span> <span class="nav-text">数据规模</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#source-amp-注释"><span class="nav-number">6.</span> <span class="nav-text">source&注释</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LuXingyu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
