@@ -568,14 +568,46 @@
 
       
         
-          <h3 id="什么都听不懂。。。"><a href="#什么都听不懂。。。" class="headerlink" title="什么都听不懂。。。"></a>什么都听不懂。。。</h3>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/11/xinde/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h3 id="什么都听不懂。。。"><a href="#什么都听不懂。。。" class="headerlink" title="什么都听不懂。。。"></a>什么都听不懂。。。</h3><p>end.</p>
+<p>begin. 20180803</p>
+<p>又要学数论了</p>
+<p>[TOC]</p>
+<h1 id="gcd-amp-ex-gcd"><a href="#gcd-amp-ex-gcd" class="headerlink" title="gcd&amp;ex_gcd"></a>gcd&amp;ex_gcd</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">	 <span class="keyword">return</span> a==<span class="number">0</span>?b:gcd(b%a,a);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">ex_gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> &amp;x,<span class="keyword">int</span> &amp;y)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(b==<span class="number">0</span>)&#123;</div><div class="line">        x=<span class="number">1</span>;y=<span class="number">0</span>;<span class="keyword">return</span> a;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">int</span> r=ex_gcd(b,a%b,y,x);</div><div class="line">        y-=x*(a/b);</div><div class="line">        <span class="keyword">return</span> r;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="贝祖定理"><a href="#贝祖定理" class="headerlink" title="贝祖定理"></a>贝祖定理</h5><p>a,b是整数，则存在整数x,y，使得ax+by=gcd（a,b）。 </p>
+<h5 id="算法-欧几里得算法"><a href="#算法-欧几里得算法" class="headerlink" title="算法:欧几里得算法"></a>算法:欧几里得算法</h5><p>由贝祖定理得,gcd(a,b)=gcd(b,a-b) 其中a≥b。不断迭代，直到b=0，此时a为原数对的最大公因数。</p>
+<p>同理 gcd(a,b)=gcd(b,a <strong>mod</strong> b) 。可在log时间内求得两数gcd。</p>
+<h5 id="算法：拓展欧几里得算法"><a href="#算法：拓展欧几里得算法" class="headerlink" title="算法：拓展欧几里得算法"></a>算法：拓展欧几里得算法</h5><p>若 gcd(a,b) = d，求 m,n 使得 d = ma + nb .</p>
+<p>利用每次的商，来倒推一组解。</p>
+<p>当b=0时，有m=1，n=0 成立。</p>
+<p>当b&gt;0时，由欧几里得算法 gcd(a,b)=gcd(b,a <strong>mod</strong>  b) ,</p>
+<p>先递归求出一组解 x，y 。</p>
+<p>b · x + （a <strong>mod</strong>  b ) · y = gcd(b,a <strong>mod</strong> b) = gcd(a,b)</p>
+<p>b · x +   (a - a <strong>div</strong> b · b) · y = gcd（a,b ) </p>
+<p>a · y +  b · （x - a <strong>div</strong> b · y) = gcd(a,b)</p>
+<p>故 n=y，m=x - a <strong>div</strong> b · y</p>
+<h2 id="类欧几里得算法"><a href="#类欧几里得算法" class="headerlink" title="类欧几里得算法"></a>类欧几里得算法</h2><p>转载自<a href="https://www.cnblogs.com/LLppdd/p/8428349.html" target="_blank" rel="external">https://www.cnblogs.com/LLppdd/p/8428349.html</a><br>问题：<br>$  f(a,b,c,n)=\sum_{i=0}^n\lfloor\frac{ai+b}{c}\rfloor $</p>
+<script type="math/tex; mode=display">f(a,b,c,n)=\sum_{i=0}^n\lfloor\frac{a}{c}i+\frac{b}{c}\rfloor</script><p>其实这个函数的几何意义是一次函数 $y=\frac{a}{c}i+\frac{b}{c}$ 下 x∈[0,n] 整点的个数（包含直线上的点，但是不包含 y=0的点） （这个可以从上面的式子看出的哦）</p>
+<p>设$m=\lfloor\frac{an+b}{c}\rfloor$ </p>
+<p>$f(a,b,c,n)=\sum_{i=0}^n \sum_{j=1}^m [\frac{ai+b}{c}&gt;=j]$ </p>
+<p>$f(a,b,c,n)=\sum_{i=0}^n \sum_{j=0}^{m-1} [\frac{ai+b}{c}&gt;=j+1]$ </p>
+<p>$f(a,b,c,n)=\sum_{i=0}^n \sum_{j=0}^{m-1} [ai&gt;=cj+c-b]$ </p>
+<p>$f(a,b,c,n)=\sum_{i=0}^n \sum_{j=0}^{m-1} [ai&gt;cj+c-b-1]$ </p>
+<p>$f(a,b,c,n)=\sum_{i=0}^n \sum_{j=0}^{m-1} [i&gt;(\frac caj+\frac{c-b-1}a)]$ </p>
+<p>$f(a,b,c,n)=\sum_{j=0}^{m-1} [n-(\frac caj+\frac{c-b-1}a)]$ </p>
+<p>$f(a,b,c,n)=nm-\sum_{j=0}^{m-1} [\frac caj+\frac{c-b-1}a]$ </p>
+<p>$f(a,b,c,n)=nm-f(c,c-b-1,a,m-1)$ </p>
+<p>f(1,2,3,4)<br><img src="/2018/07/11/xinde/p1.svg" alt="图片1" title="图片1"></p>
+<p><a href="https://www.cnblogs.com/LLppdd/p/8428349.html" target="_blank" rel="external">https://www.cnblogs.com/LLppdd/p/8428349.html</a></p>
+<p><a href="http://www.fooplot.com" target="_blank" rel="external">http://www.fooplot.com</a></p>
+<h1 id="逆元（inv）"><a href="#逆元（inv）" class="headerlink" title="逆元（inv）"></a>逆元（inv）</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">inv</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> m)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> x,y,t;</div><div class="line">	t=ex_gcd(a,m,x,y);</div><div class="line">	<span class="keyword">if</span>(t==<span class="number">1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">return</span> y;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当计算：<script type="math/tex">a\times x \equiv b(mod\ m)</script>，我们希望把 a 除到右边。但不能直接除。记a的逆元为<script type="math/tex">a^{-1}</script></p>
+<script type="math/tex; mode=display">x \equiv a^{-1}\times b(mod\ m)</script><p><strong>求逆元要求gcd(a,b)=1)</strong></p>
+<p>$\because$gcd(a,m) = 1  $\therefore$  $\exists s,t$  s·a + t·m = 1</p>
+<p>$ \therefore  sa + nb  \equiv {1}   (mod  m)  , n · b \equiv 0  (mod  b)  ,  a·m \equiv 1 (mod  b) $</p>
+<p>所以可以通过ex_gcd 来求逆元（要求gcd(a,b)=1)</p>
+<script type="math/tex; mode=display">b^{-1} = m​</script><h1 id="单变元模线性方程组"><a href="#单变元模线性方程组" class="headerlink" title="单变元模线性方程组"></a>单变元模线性方程组</h1>
+          
         
       
     </div>
@@ -1894,24 +1926,7 @@ Matrix->init: column and row</textarea><textarea id="sequence-1-options" style="
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
