@@ -573,6 +573,26 @@
 <p>begin. 20180803</p>
 <p>又要学数论了</p>
 <p>[TOC]</p>
+<h1 id="求n-中含有某个因子个数的方法"><a href="#求n-中含有某个因子个数的方法" class="headerlink" title="求n!中含有某个因子个数的方法"></a>求n!中含有某个因子个数的方法</h1><p>转载自<a href="https://www.cnblogs.com/dolphin0520/archive/2011/04/11/2012891.html" target="_blank" rel="external">https://www.cnblogs.com/dolphin0520/archive/2011/04/11/2012891.html</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">count</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> k)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> num=<span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(n)</div><div class="line">    &#123;</div><div class="line">        num+=n/k;</div><div class="line">        n/=k;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> num;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="求一个阶乘中含有的素因子2的个数"><a href="#求一个阶乘中含有的素因子2的个数" class="headerlink" title="求一个阶乘中含有的素因子2的个数"></a>求一个阶乘中含有的素因子2的个数</h5><pre><code>    n!共 $n+\frac{n}{2}+\frac{n}{2^2}+···+\frac{n}{2^k}（整除）$ 个二
+
+    即把它分解成二进制位,如$（10100）_2$ ，因数2的个数为$（1010）_2+（101）_2+（10）_2+（1）_2$
+
+    我的观点是$(10100)_2 =(10000)_2 +(100)_2$ 
+
+    而$(10000)_2 的贡献为 (10000)_2 - 1,(100)_2 的贡献为 $$(100)_2 - 1$
+
+    所以n!中因子2的个数为 n -（n的二进制中一的个数）
+</code></pre><h1 id="组合数奇偶性的判断"><a href="#组合数奇偶性的判断" class="headerlink" title="组合数奇偶性的判断"></a>组合数奇偶性的判断</h1><pre><code>转载自https://blog.csdn.net/kongming_acm/article/details/5965243
+</code></pre><p>回归此题</p>
+<ul>
+<li><p>最直观的方法就是计算一下，然后看它的奇偶性；</p>
+</li>
+<li><p>对于给定C(n,m)，检查n中2因子的个数与m和(n-m)中2因子个数和的关系，假设n!中2因子个数为a，m!中2因子个数为b，(n-m)!中2因子个数为c，则显然有a&gt;=(b+c)；并且当a==b+c时，一定为奇，否则为偶。</p>
+<p>题意转化为求a和b+c。求一个阶乘中含有的素因子i的个数的方法，但是有的时候，这种方法仍然太慢（比如TOJ的一道题目，要判断5000000次），更快的方法是什么呢？ 方法三：由方法2可以很容易地看出，n!中含有2因子的个数等于(n-它的二进制形式中1的个数)（每除一次如果有1的话去掉一个1）。那么题意再次转化为求m,n-m以及n的二进制形式中1的个数。或者说，看n&amp;m ?= m，这个呢，如果等于，那么也就意味着，所有m中为1的位置n一定为1，那么n-m就可以直接用二进制减，这样得到的差的二进制中1的个数加上m中二进制1的位数正好等于n中1的位数，由前面可以知道，这就是一个奇数</p>
+</li>
+</ul>
 <h1 id="gcd-amp-ex-gcd"><a href="#gcd-amp-ex-gcd" class="headerlink" title="gcd&amp;ex_gcd"></a>gcd&amp;ex_gcd</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">	 <span class="keyword">return</span> a==<span class="number">0</span>?b:gcd(b%a,a);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">ex_gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> &amp;x,<span class="keyword">int</span> &amp;y)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(b==<span class="number">0</span>)&#123;</div><div class="line">        x=<span class="number">1</span>;y=<span class="number">0</span>;<span class="keyword">return</span> a;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">int</span> r=ex_gcd(b,a%b,y,x);</div><div class="line">        y-=x*(a/b);</div><div class="line">        <span class="keyword">return</span> r;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h5 id="贝祖定理"><a href="#贝祖定理" class="headerlink" title="贝祖定理"></a>贝祖定理</h5><p>a,b是整数，则存在整数x,y，使得ax+by=gcd（a,b）。 </p>
 <h5 id="算法-欧几里得算法"><a href="#算法-欧几里得算法" class="headerlink" title="算法:欧几里得算法"></a>算法:欧几里得算法</h5><p>由贝祖定理得,gcd(a,b)=gcd(b,a-b) 其中a≥b。不断迭代，直到b=0，此时a为原数对的最大公因数。</p>
@@ -1414,7 +1434,9 @@
 <p><a href="https://github.com/wafer-li/hexo-filter-plantuml/blob/master/README.md" target="_blank" rel="external">https://github.com/wafer-li/hexo-filter-plantuml/blob/master/README.md</a></p>
 <div id="flowchart-0" class="flow-chart"></div>
 
-<p><a href="https://github.com/bubkoo/hexo-filter-sequence" target="_blank" rel="external">https://github.com/bubkoo/hexo-filter-sequence</a><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: Start|past
+<p><a href="https://github.com/bubkoo/hexo-filter-sequence" target="_blank" rel="external">https://github.com/bubkoo/hexo-filter-sequence</a><script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.27/webfontloader.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!</textarea><textarea id="sequence-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12,"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: Start|past
 e=>end: End
 op1=>operation: My Operation|past
 op2=>operation: Stuff|current
@@ -1428,9 +1450,7 @@ st->op1(right)->cond
 cond(yes, right)->c2
 cond(no)->sub1(left)->op1
 c2(yes)->io->e
-c2(no)->op2->e</textarea><textarea id="flowchart-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.27/webfontloader.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">Alice->Bob: Hello Bob, how are you?
-Note right of Bob: Bob thinks
-Bob-->Alice: I am good thanks!</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script></p>
+c2(no)->op2->e</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12,"theme":"simple"}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></p>
 
           
         
@@ -1582,11 +1602,11 @@ Bob-->Alice: I am good thanks!</textarea><textarea id="sequence-0-options" style
 Matrix->pow: a quckily way for big n 
 pow->operator*: depend
 Matrix->operator*: Matrix multiplication 
-Matrix->init: column and row</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script><textarea id="sequence-1-code" style="display: none">Title: How this Matrix work
+Matrix->init: column and row</textarea><textarea id="sequence-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12,"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script><textarea id="sequence-1-code" style="display: none">Title: How this Matrix work
 Matrix->pow: a quckily way for big n 
 pow->operator*: depend
 Matrix->operator*: Matrix multiplication 
-Matrix->init: column and row</textarea><textarea id="sequence-1-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-1-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-1", options);</script></p>
+Matrix->init: column and row</textarea><textarea id="sequence-1-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12,"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-1-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-1", options);</script></p>
 
           
         

@@ -95,13 +95,13 @@
 求Max{ave(a,b),1≤a,b≤N，且a≤b-F+1}，即求一段长度大于等于F且平均值最大的子串。
 范围：F≤N≤105。
 [分析]枚举">
-<meta property="og:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050501.svg">
-<meta property="og:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050502.svg">
-<meta property="og:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050503.svg">
 <meta property="og:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050504.svg">
+<meta property="og:image" content="freedomxingyulu.github.io/30/slope/2018050504.svg">
 <meta property="og:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050505.svg">
+<meta property="og:image" content="freedomxingyulu.github.io/30/slope/2018050505.svg">
+<meta property="og:image" content="freedomxingyulu.github.io/30/slope/2018050503.svg">
 <meta property="og:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050503.svg">
-<meta property="og:updated_time" content="2018-08-06T06:44:58.000Z">
+<meta property="og:updated_time" content="2018-09-09T08:20:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="slope">
 <meta name="twitter:description" content="个人学习。
@@ -110,7 +110,7 @@
 求Max{ave(a,b),1≤a,b≤N，且a≤b-F+1}，即求一段长度大于等于F且平均值最大的子串。
 范围：F≤N≤105。
 [分析]枚举">
-<meta name="twitter:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050501.svg">
+<meta name="twitter:image" content="freedomxingyulu.github.io/2017/11/30/slope/2018050504.svg">
 
 
 
@@ -332,37 +332,46 @@
 <p><em>数据如下时</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1 3 8 4 2 6 8</div></pre></td></tr></table></figure>
 <p><em>即求之中的最大斜率</em></p>
-<img src="/2017/11/30/slope/2018050501.svg" alt="p1" title="p1">
-<h6 id="构造下凸折线"><a href="#构造下凸折线" class="headerlink" title="[构造下凸折线]"></a>[构造下凸折线]</h6><p>有序化一下，规定对<em>i</em>&lt;<em>j</em>，只检查P<em>j</em>向P<em>i</em>的连线，对P<em>i</em>不检查与P<em>j</em>的连线。也就是说对任意一点，仅检查该点与在其前方的点的斜率。</p>
-<p>当我们考察一个点P<em>t</em>时，朴素的平方级算法依次选取t点之前的每一个被检查点<em>p</em>，考察直线<em>p-&gt;</em>P<em>t</em>的斜率。但仔细观察，若集合内存在三个点P<em>i</em>,P<em>j</em>,P<em>k</em>，且<em>i</em>&lt;<em>j</em>&lt;<em>k</em>，三个点成关系，P<em>j</em>点在直线P<em>i-&gt;</em>P<em>k</em>的上凸部分：k(P<em>i</em>,P<em>j</em>)&gt;k(P<em>j</em>,P<em>k</em>)，可以发现P<em>j</em>点是多余的。</p>
-<img src="/2017/11/30/slope/2018050502.svg" alt="p2" title="p2">
-<p>若k(P<em>t</em>,P<em>j</em>)&gt; k(P<em>t</em>,P<em>i</em>)，那么可以看出，P<em>t</em>点一定要在直线P<em>i</em> P<em>j</em>的上方，即1号区域。同理若k(P<em>t</em>,P<em>j</em>)&gt; k(P<em>t</em>,P<em>k</em>)，那么P<em>t</em>点一定要在直线P<em>j</em>P<em>k</em>的下方，即的2号区域。</p>
-<p>综合上述两种情况，若P<em>t</em>P<em>j</em>的斜率同时大于P<em>t</em> P<em>i</em>和P<em>t</em>P<em>k</em>的，P<em>t</em>点一定要落在两阴影的重叠部分，但这部分显然不满足开始时<em>t</em>&gt;j的假设。于是，P<em>t</em>落在任何一个合法的位置时，P<em>t</em>P<em>j</em>的斜率要么小于P<em>t</em>P<em>i</em>，要么小于P<em>t</em>P<em>k</em>，即不可能成为最大值，因此P<em>j</em>点多余，完全可以删去。</p>
-<p>这个结论告诉我们，任何一个点P<em>t</em>的检查集合中，不可能存在一个对最优结果有贡献的上凸点，因此我们可以删去每一个上凸点，剩下的则是一个下凸折线。最后需要在这个下凸折线上找一点与P<em>t</em>点构成的直线斜率最大——显然这条直线是在与折线相切时斜率最大，如图所示。</p>
-<img src="/2017/11/30/slope/2018050503.svg" alt="p3" title="p3">
-<p>以上来自《浅谈数形结合思想在信息学竞赛中的应用》周源</p>
+<p><del>显然要维护一个凸包</del></p>
+<p>接下来请移步《浅谈数形结合思想在信息学竞赛中的应用》周源</p>
 <h2 id="斜率优化"><a href="#斜率优化" class="headerlink" title="斜率优化"></a>斜率优化</h2><p>下面正式讲斜率优化。</p>
-<p>对于一类Dp方程式：f[i]=min(f[j]+a[i]∗b[j]+c[j]+d[i])  a[x],b[x],c[x],d[x]都为x的函数，且a单增。</p>
-<pre><code>在 i 时对于最优决策 j : f[i]=f[j] -a[i]∗b[j]+c[j] +d[i]
-                   (f[i])=-a[i] ∗ b[j]+ (c[j]+d[i]+f[j])             
-                       b    =-k   *     x  +  y   (y=kx+b)
-</code></pre><p>对于任意j可以表示为图像上一点J( b[j],c[j]+<strong>d[i]</strong>+f[j] )，目的是求出f[i],因为f[i]的值等于y=kx+b直线的截距。</p>
+<p>对于一类Dp方程式：f[i]=min(f[j]-a[i]∗b[j]+c[j]+d[i])  a[x],b[x],c[x],d[x]都为x的函数，且a单增。</p>
+<pre><code>在 i 时对于最优决策 j : f[i]  = f[j] -a[i] * b[j]+ c[j] +d[i]
+                     (f[i]-d[i])= -a[i] * b[j]+ (c[j]+f[j])             
+                         b    =      -k    *  x  +  y   (y=kx+b)
+</code></pre><p>对于任意j可以表示为图像上一点  J ( b[j],c[j]+f[j] )，目的是求出f[i],因为f[i]的值等于y=kx+b直线的截距。</p>
+<p>添加一个点时，我们就确定了斜率k = a[i]，x、y在已有的点中选择。</p>
 <p>问题转化为：对于一条斜率k = a[i] 的直线（为什么将它作为斜率?），使其至少过一点J(即上文那个任意J点,j&lt;i)，使得该直线的截距最小(就是与y轴焦点的纵坐标值)。那么考虑哪些J点有望成为答案？</p>
 <img src="/2017/11/30/slope/2018050504.svg" alt="p4" title="p4">
+<p><img src="/30/slope/2018050504.svg" alt=""></p>
 <img src="/2017/11/30/slope/2018050505.svg" alt="p5" title="p5">
+<p><img src="/30/slope/2018050505.svg" alt=""></p>
 <p>因为a[i]单调递增，即斜率逐渐变大。所以可以维护一个下凸包。逐渐去除尾部</p>
+<p><img src="/30/slope/2018050503.svg" alt=""></p>
 <img src="/2017/11/30/slope/2018050503.svg" alt="p3" title="p3">
 <p>而加入的点用上面的方式去除不可能成为最优解的解。</p>
 <p>在代码实现“去除尾巴”和“清理头部”中，都是以判断斜率为标准,所以是叫斜率优化</p>
-<p>注意到了吗J( b[j],c[j]+<strong>d[i]</strong>+f[j] )那么每次d[i]都在变化。但在求斜率这个d[i]会被消去故不影响。</p>
 <h4 id="回归数学"><a href="#回归数学" class="headerlink" title="回归数学"></a>回归数学</h4><p>还记得决策单调性和算斜率的一大堆推导吗？</p>
 <p>决策单调性就是证明了d[i]对每次决策没有影响（既然在求i时，j比k要优，那么之后，即在t(t&gt;i)时，j是否也比k要优）。似乎是在证a单增。这步似乎没什么用特别是对a[i]不单增时更没用</p>
-<p>而算斜率就是从两个J ( b[j],c[j]+<strong>d[i]</strong>+f[j] )中算出斜率。</p>
+<p>而算斜率就是从两个J ( b[j],c[j]+f[j] )中算出斜率。</p>
 <h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>当a[i]不单增时怎么办？思路还是差不多。不过头部的那些不丢掉。而每次用分治（或暴力枚举），找到那个最合适的。下面是我参考的网址，也有分治的做法。</p>
 <p><a href="https://blog.csdn.net/shiyongyang/article/details/78299894?readlog" target="_blank" rel="external">https://blog.csdn.net/shiyongyang/article/details/78299894?readlog</a></p>
 <p><a href="https://blog.csdn.net/bill_yang_2016/article/details/54667902" target="_blank" rel="external">https://blog.csdn.net/bill_yang_2016/article/details/54667902</a></p>
 <p><a href="http://www.cnblogs.com/gjc1124646822/p/8615011.html" target="_blank" rel="external">http://www.cnblogs.com/gjc1124646822/p/8615011.html</a></p>
 <p><a href="https://blog.csdn.net/lxc779760807/article/details/51366552" target="_blank" rel="external">https://blog.csdn.net/lxc779760807/article/details/51366552</a></p>
+<h2 id="例题增订"><a href="#例题增订" class="headerlink" title="例题增订"></a>例题增订</h2><h3 id="t1"><a href="#t1" class="headerlink" title="t1"></a>t1</h3><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><pre><code>[题目传送门](https://www.luogu.org/problemnew/show/P3195)
+
+P教授要去看奥运，但是他舍不下他的玩具，于是他决定把所有的玩具运到北京。他使用自己的压缩器进行压缩，其可以将任意物品变成一堆，再放到一种特殊的一维容器中。P教授有编号为1⋯N 的 N 件玩具，第 i 件玩具经过压缩后变成一维长度为 C_i .为了方便整理，P教授要求在一个一维容器中的玩具编号是连续的。同时如果一个一维容器中有多个玩具，那么两件玩具之间要加入一个单位长度的填充物，形式地说如果将第 ii 件玩具到第 j 个玩具放到一个容器中，那么容器的长度将为$ x=j-i+\sum\limits_{k=i}^{j}C_k$制作容器的费用与容器的长度有关，根据教授研究，如果容器长度为 x ,其制作费用为 $(X-L)^2$ .其中 L 是一个常量。P教授不关心容器的数目，他可以制作出任意长度的容器，甚至超过 L 。但他希望费用最小.
+</code></pre><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*暴力在此</span></div><div class="line">		s为c的前缀和，i,L,如题。f为dp数组。</div><div class="line">*/</div><div class="line"><span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</div><div class="line">	<span class="keyword">long</span> <span class="keyword">long</span> t=(i<span class="number">-1</span>+s[i]-L);</div><div class="line">	f[i]=t*t;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</div><div class="line">		<span class="keyword">long</span> <span class="keyword">long</span> t=(i-j<span class="number">-1</span>+s[i]-s[j]-L);</div><div class="line">		f[i]=min(f[j]+t*t,f[i]);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>发现 $ f[i]=min^{j=0..i-1}(f[j]+(i-j-1+s[i]-s[j]-L )^2)$可以使用斜率优化
+
+把式子分解
+
+$f[i]-(i+s[i]-1-L)^2 = f[j]+(j+s[j])^2  - 2 (i+s[i]-1-L)(j+s[i])$
+
+    b                    =         y          - k             *                         x
+</code></pre><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//代码描述</span></div><div class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">k</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> (<span class="keyword">long</span> <span class="keyword">long</span>)<span class="number">2</span>*(s[i]+i<span class="number">-1</span>-L);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">x</span><span class="params">(<span class="keyword">int</span> j)</span></span>&#123;</div><div class="line">	<span class="keyword">return</span> (<span class="keyword">long</span> <span class="keyword">long</span>)j+s[j];</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">y</span><span class="params">(<span class="keyword">int</span> j)</span></span>&#123;</div><div class="line">	<span class="keyword">return</span> (<span class="keyword">long</span> <span class="keyword">long</span>)(j+s[j])*(j+s[j])+f[j];</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">b</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span>&#123;</div><div class="line">	<span class="keyword">return</span> (<span class="keyword">long</span> <span class="keyword">long</span>)y(j)-k(i)*x(j);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">double</span> <span class="title">slope</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">	<span class="keyword">return</span> (<span class="keyword">double</span>)(y(a)-y(b))/(x(a)-x(b));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//凸包处理</span></div><div class="line">dq[head]=<span class="number">0</span>;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;		</div><div class="line">	<span class="keyword">while</span>(head&gt;tail&amp;&amp;slope(dq[tail+<span class="number">1</span>],dq[tail])&lt;k(i)) tail++;</div><div class="line"></div><div class="line">    f[i]=b(i,dq[tail])+(s[i]+i<span class="number">-1</span>-L)*(s[i]+i<span class="number">-1</span>-L);</div><div class="line"></div><div class="line">	<span class="keyword">while</span>(head&gt;tail&amp;&amp;slope(i,dq[head])&lt;slope(dq[head],dq[head<span class="number">-1</span>])) head--;</div><div class="line">	dq[++head]=i;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -533,7 +542,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引子"><span class="nav-number">1.</span> <span class="nav-text">引子</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#题意简述"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">[题意简述]</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#分析"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">[分析]</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#构造下凸折线"><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">[构造下凸折线]</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#斜率优化"><span class="nav-number">2.</span> <span class="nav-text">斜率优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#回归数学"><span class="nav-number">2.0.1.</span> <span class="nav-text">回归数学</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多"><span class="nav-number">3.</span> <span class="nav-text">更多</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引子"><span class="nav-number">1.</span> <span class="nav-text">引子</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#题意简述"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">[题意简述]</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#分析"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">[分析]</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#斜率优化"><span class="nav-number">2.</span> <span class="nav-text">斜率优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#回归数学"><span class="nav-number">2.0.1.</span> <span class="nav-text">回归数学</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多"><span class="nav-number">3.</span> <span class="nav-text">更多</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例题增订"><span class="nav-number">4.</span> <span class="nav-text">例题增订</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#t1"><span class="nav-number">4.1.</span> <span class="nav-text">t1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">5.</span> <span class="nav-text">题目描述</span></a></li></ol></div>
             
 
           </div>
