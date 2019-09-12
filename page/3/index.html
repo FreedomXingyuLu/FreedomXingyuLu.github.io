@@ -228,6 +228,455 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="freedomxingyulu.github.io/2018/07/11/xinde/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LuXingyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HelloWorld">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/11/xinde/" itemprop="url">数论心得</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-11T07:21:33+08:00">
+                2018-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/thinking/" itemprop="url" rel="index">
+                    <span itemprop="name">thinking</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="！！！参考《ACM国际大学生程序设计竞赛算法与实现》"><a href="#！！！参考《ACM国际大学生程序设计竞赛算法与实现》" class="headerlink" title="！！！参考《ACM国际大学生程序设计竞赛算法与实现》"></a>！！！参考《ACM国际大学生程序设计竞赛算法与实现》</h2><h1 id="求n-中含有某个因子个数的方法"><a href="#求n-中含有某个因子个数的方法" class="headerlink" title="求n!中含有某个因子个数的方法"></a>求n!中含有某个因子个数的方法</h1><p>转载自<a href="https://www.cnblogs.com/dolphin0520/archive/2011/04/11/2012891.html" target="_blank" rel="external">https://www.cnblogs.com/dolphin0520/archive/2011/04/11/2012891.html</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">count</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> k)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> num=<span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(n)</div><div class="line">    &#123;</div><div class="line">        num+=n/k;</div><div class="line">        n/=k;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> num;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="求一个阶乘中含有的素因子2的个数"><a href="#求一个阶乘中含有的素因子2的个数" class="headerlink" title="求一个阶乘中含有的素因子2的个数"></a>求一个阶乘中含有的素因子2的个数</h5><pre><code>    n!共 $n+\frac{n}{2}+\frac{n}{2^2}+···+\frac{n}{2^k}（整除）$ 个二
+
+    即把它分解成二进制位,如$（10100）_2$ ，因数2的个数为$（1010）_2+（101）_2+（10）_2+（1）_2$
+
+    我的观点是$(10100)_2 =(10000)_2 +(100)_2$ 
+
+    而$(10000)_2 的贡献为 (10000)_2 - 1,(100)_2 的贡献为 $$(100)_2 - 1$
+
+    所以n!中因子2的个数为 n -（n的二进制中一的个数）
+</code></pre><h1 id="组合数奇偶性的判断"><a href="#组合数奇偶性的判断" class="headerlink" title="组合数奇偶性的判断"></a>组合数奇偶性的判断</h1><pre><code>转载自https://blog.csdn.net/kongming_acm/article/details/5965243
+</code></pre><p>回归此题</p>
+<ul>
+<li><p>最直观的方法就是计算一下，然后看它的奇偶性；</p>
+</li>
+<li><p>对于给定C(n,m)，检查n中2因子的个数与m和(n-m)中2因子个数和的关系，假设n!中2因子个数为a，m!中2因子个数为b，(n-m)!中2因子个数为c，则显然有a&gt;=(b+c)；并且当a==b+c时，一定为奇，否则为偶。</p>
+<p>题意转化为求a和b+c。求一个阶乘中含有的素因子i的个数的方法，但是有的时候，这种方法仍然太慢（比如TOJ的一道题目，要判断5000000次），更快的方法是什么呢？ 方法三：由方法2可以很容易地看出，n!中含有2因子的个数等于(n-它的二进制形式中1的个数)（每除一次如果有1的话去掉一个1）。那么题意再次转化为求m,n-m以及n的二进制形式中1的个数。或者说，看n&amp;m ?= m，这个呢，如果等于，那么也就意味着，所有m中为1的位置n一定为1，那么n-m就可以直接用二进制减，这样得到的差的二进制中1的个数加上m中二进制1的位数正好等于n中1的位数，由前面可以知道，这就是一个奇数</p>
+</li>
+</ul>
+<h1 id="gcd-amp-ex-gcd"><a href="#gcd-amp-ex-gcd" class="headerlink" title="gcd&amp;ex_gcd"></a>gcd&amp;ex_gcd</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">	 <span class="keyword">return</span> a==<span class="number">0</span>?b:gcd(b%a,a);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">ex_gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> &amp;x,<span class="keyword">int</span> &amp;y)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(b==<span class="number">0</span>)&#123;</div><div class="line">        x=<span class="number">1</span>;y=<span class="number">0</span>;<span class="keyword">return</span> a;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">int</span> r=ex_gcd(b,a%b,y,x);</div><div class="line">        y-=x*(a/b);</div><div class="line">        <span class="keyword">return</span> r;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="贝祖定理"><a href="#贝祖定理" class="headerlink" title="贝祖定理"></a>贝祖定理</h5><p>a,b是整数，则存在整数x,y，使得ax+by=gcd（a,b）。 </p>
+<h5 id="算法-欧几里得算法"><a href="#算法-欧几里得算法" class="headerlink" title="算法:欧几里得算法"></a>算法:欧几里得算法</h5><p>由贝祖定理得,gcd(a,b)=gcd(b,a-b) 其中a≥b。不断迭代，直到b=0，此时a为原数对的最大公因数。</p>
+<p>同理 gcd(a,b)=gcd(b,a <strong>mod</strong> b) 。可在log时间内求得两数gcd。</p>
+<h5 id="算法：拓展欧几里得算法"><a href="#算法：拓展欧几里得算法" class="headerlink" title="算法：拓展欧几里得算法"></a>算法：拓展欧几里得算法</h5><p>若 gcd(a,b) = d，求 m,n 使得 d = ma + nb .</p>
+<p>利用每次的商，来倒推一组解。</p>
+<p>当b=0时，有m=1，n=0 成立。</p>
+<p>当b&gt;0时，由欧几里得算法 gcd(a,b)=gcd(b,a <strong>mod</strong>  b) ,</p>
+<p>先递归求出一组解 x，y 。</p>
+<p>b · x + （a <strong>mod</strong>  b ) · y = gcd(b,a <strong>mod</strong> b) = gcd(a,b)</p>
+<p>b · x +   (a - a <strong>div</strong> b · b) · y = gcd（a,b ) </p>
+<p>a · y +  b · （x - a <strong>div</strong> b · y) = gcd(a,b)</p>
+<p>故 n=y，m=x - a <strong>div</strong> b · y</p>
+<h1 id="逆元（inv）"><a href="#逆元（inv）" class="headerlink" title="逆元（inv）"></a>逆元（inv）</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">inv</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> m)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> x,y,t;</div><div class="line">	t=ex_gcd(a,m,x,y);</div><div class="line">	<span class="keyword">if</span>(t!=<span class="number">1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">return</span> x;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当计算：<script type="math/tex">a\times x \equiv b(mod\ m)</script>，我们希望把 a 除到右边。但不能直接除,然而乘法可以。记a的逆元为<script type="math/tex">a^{-1}</script></p>
+<script type="math/tex; mode=display">a · a^{-1} \equiv 1(mod\ m)</script><p><strong>求逆元要求gcd(a,m)=1</strong></p>
+<p>$\because$gcd(a,m) = 1  $\therefore$  $\exists s,t$  s·a + t·m = 1</p>
+<p>$ \therefore  s·a + t·m  \equiv {1}   (mod  m)  , t · m \equiv 0  (mod  m)  ,  s · a \equiv 1 (mod  m) $</p>
+<p>所以可以通过ex_gcd 来求逆元</p>
+<script type="math/tex; mode=display">a^{-1} = s</script><h2 id="类欧几里得算法"><a href="#类欧几里得算法" class="headerlink" title="类欧几里得算法"></a>类欧几里得算法</h2><p>转载自<a href="https://www.cnblogs.com/LLppdd/p/8428349.html" target="_blank" rel="external">https://www.cnblogs.com/LLppdd/p/8428349.html</a><br>问题：<br>$  f(a,b,c,n)=\sum_{i=0}^n\lfloor\frac{ai+b}{c}\rfloor $</p>
+<script type="math/tex; mode=display">f(a,b,c,n)=\sum_{i=0}^n\lfloor\frac{a}{c}i+\frac{b}{c}\rfloor</script><p>其实这个函数的几何意义是一次函数 $y=\frac{a}{c}i+\frac{b}{c}$ 下 x∈[0,n] 整点的个数（包含直线上的点，但是不包含 y=0的点） （这个可以从上面的式子看出的哦）</p>
+<p>设$m=\lfloor\frac{an+b}{c}\rfloor$ </p>
+<p>$f(a,b,c,n)=\sum_{i=0}^n \sum_{j=1}^m [\frac{ai+b}{c}&gt;=j]$ </p>
+<p>$f(a,b,c,n)=\sum_{i=0}^n \sum_{j=0}^{m-1} [\frac{ai+b}{c}&gt;=j+1]$ </p>
+<p>$f(a,b,c,n)=\sum_{i=0}^n \sum_{j=0}^{m-1} [ai&gt;=cj+c-b]$ </p>
+<p>$f(a,b,c,n)=\sum_{i=0}^n \sum_{j=0}^{m-1} [ai&gt;cj+c-b-1]$ </p>
+<p>$f(a,b,c,n)=\sum_{i=0}^n \sum_{j=0}^{m-1} [i&gt;(\frac caj+\frac{c-b-1}a)]$ </p>
+<p>$f(a,b,c,n)=\sum_{j=0}^{m-1} [n-(\frac caj+\frac{c-b-1}a)]$ </p>
+<p>$f(a,b,c,n)=nm-\sum_{j=0}^{m-1} [\frac caj+\frac{c-b-1}a]$ </p>
+<p>$f(a,b,c,n)=nm-f(c,c-b-1,a,m-1)$ </p>
+<p>f(1,2,3,4)<br><img src="/2018/07/11/xinde/p1.svg" alt="图片1" title="图片1"></p>
+<p><img src="/11/xinde/p1.svg" alt=""></p>
+<p><a href="https://www.cnblogs.com/LLppdd/p/8428349.html" target="_blank" rel="external">https://www.cnblogs.com/LLppdd/p/8428349.html</a></p>
+<p><a href="http://www.fooplot.com" target="_blank" rel="external">http://www.fooplot.com</a></p>
+<h1 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h1><p><strong><em>定义：$\phi(n)$为小于等于n的数中与n互质的数的个数</em></strong></p>
+<ul>
+<li><p>$\phi(1)$=1</p>
+</li>
+<li><p>若$ n=p^k $, p为质数则$\phi(n)=p^k-p^{k-1}=(p-1)p^{k-1} $</p>
+<pre><code>//为什么：如$3^5$可以发现$\{3*k,|1&lt;= k &lt;= 3^{k-1} \}$ 都不和它互质。
+</code></pre></li>
+<li><p>若m，n互质，$\phi(mn)=\phi(m)\times\phi(n)$</p>
+</li>
+</ul>
+<h1 id="单变元模线性方程组"><a href="#单变元模线性方程组" class="headerlink" title="单变元模线性方程组"></a>单变元模线性方程组</h1>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="freedomxingyulu.github.io/2018/03/31/hello-lu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LuXingyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HelloWorld">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/31/hello-lu/" itemprop="url">hello,lu</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-31T15:32:24+08:00">
+                2018-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Hello,Lu :p</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="freedomxingyulu.github.io/2018/03/11/DoubleColorChessboard/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LuXingyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HelloWorld">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/11/DoubleColorChessboard/" itemprop="url">DoubleColorChessboard</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-11T17:29:14+08:00">
+                2018-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="问题-L1-1-棋盘DoubleColorChessboard"><a href="#问题-L1-1-棋盘DoubleColorChessboard" class="headerlink" title="问题 $L1^1$: 棋盘DoubleColorChessboard"></a>问题 $L1^1$: 棋盘DoubleColorChessboard</h1>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/11/DoubleColorChessboard/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="freedomxingyulu.github.io/2018/03/07/graphviz/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -744,9 +1193,7 @@
 <p><a href="https://github.com/wafer-li/hexo-filter-plantuml/blob/master/README.md" target="_blank" rel="external">https://github.com/wafer-li/hexo-filter-plantuml/blob/master/README.md</a></p>
 <div id="flowchart-0" class="flow-chart"></div>
 
-<p><a href="https://github.com/bubkoo/hexo-filter-sequence" target="_blank" rel="external">https://github.com/bubkoo/hexo-filter-sequence</a><script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.27/webfontloader.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">Alice->Bob: Hello Bob, how are you?
-Note right of Bob: Bob thinks
-Bob-->Alice: I am good thanks!</textarea><textarea id="sequence-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12,"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: Start|past
+<p><a href="https://github.com/bubkoo/hexo-filter-sequence" target="_blank" rel="external">https://github.com/bubkoo/hexo-filter-sequence</a><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: Start|past
 e=>end: End
 op1=>operation: My Operation|past
 op2=>operation: Stuff|current
@@ -760,7 +1207,9 @@ st->op1(right)->cond
 cond(yes, right)->c2
 cond(no)->sub1(left)->op1
 c2(yes)->io->e
-c2(no)->op2->e</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12,"theme":"simple"}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></p>
+c2(no)->op2->e</textarea><textarea id="flowchart-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.27/webfontloader.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script></p>
 
           
         
@@ -912,11 +1361,11 @@ c2(no)->op2->e</textarea><textarea id="flowchart-0-options" style="display: none
 Matrix->pow: a quckily way for big n 
 pow->operator*: depend
 Matrix->operator*: Matrix multiplication 
-Matrix->init: column and row</textarea><textarea id="sequence-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12,"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script><textarea id="sequence-1-code" style="display: none">Title: How this Matrix work
+Matrix->init: column and row</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script><textarea id="sequence-1-code" style="display: none">Title: How this Matrix work
 Matrix->pow: a quckily way for big n 
 pow->operator*: depend
 Matrix->operator*: Matrix multiplication 
-Matrix->init: column and row</textarea><textarea id="sequence-1-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12,"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-1-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-1", options);</script></p>
+Matrix->init: column and row</textarea><textarea id="sequence-1-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-1-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-1", options);</script></p>
 
           
         
@@ -1223,345 +1672,11 @@ Matrix->init: column and row</textarea><textarea id="sequence-1-options" style="
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="freedomxingyulu.github.io/2018/02/09/my-zoj/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LuXingyu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HelloWorld">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/09/my-zoj/" itemprop="url">my zoj</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-09T13:23:31+08:00">
-                2018-02-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/thinking/" itemprop="url" rel="index">
-                    <span itemprop="name">thinking</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="http://www.icpc.moe/onlinejudge/showProblemsets.do" target="_blank" rel="external">http://www.icpc.moe/onlinejudge/showProblemsets.do</a></p>
-<p><a href="http://blog.csdn.net/hitwengqi/article/details/8180403" target="_blank" rel="external">http://makaidong.com/superx/208672_4846735.html</a></p>
-<p>ZOJ<span class="t_tag">题目</span>分类<br>初学者题：</p>
-<p>1001 1037 1048 1049 1051 1067 1115 1151 1201 1205 1216 1240 1241 1242 1251 1292 1331 1334 1337 1338 1350 1365 1382 1383 1394 1402 1405 1414 1494 1514 1622 1715 1730 1755 1760 1763 1796 1813 1879 1889 1904 1915 1949 2001 2022 2099 2104 2108 2172 2176 2201 2208 2321 2345 2351 2376 2388 2405 2417 2433</p>
-<p><span class="t_tag">模拟</span>问题：</p>
-<p>1006 1009 1012 1016 1019 1023 1026 1028 1038 1042 1045 1051 1056 1057 1058 1061 1065 1066 1068 1072 1073 1078 1087 1088 1097 1098 1099 1103 1111 1121 1124 1126 1128 1133 1138 1146 1152 1154 1160 1175 1178 1187 1194 1207 1222 1224 1244 1259 1267 1274 1275 1277 1278 1279 1281 1282 1294 1295 1300 1308 1317 1324 1339 1351 1362 1392 1393 1397 1398 1399 1400 1402 1432 1434 1444 1452 1475 1487 1493 1497 1517 1526 1527 1530 1531 1552 1569 1573 1592 1601 1610 1623 1631 1641 1652 1657 1659 1682 1692 1700 1702 1707 1708 1712 1728 1732 1737 1746 1747 1750 1752 1754 1758 1764 1768 1774 1797 1799 1804 1807 1811 1822 1824 1831 1834 1837 1838 1842 1844 1845 1854 1858 1862 1870 1881 1884 1889 1896 1906 1921 1951 1969 1978 2000 2022 2040 2046 2047 2051 2072 2084 2101 2112 2131 2133 2138 2148 2153 2156 2160 2164 2172 2178 2184 2185 2187 2189 2193 2196 2201 2204 2208 2211 2212 2220 2229 2233 2239 2240 2261 2262 2269 2277 2288 2301 2309 2311 2312 2316 2320 2321 2322 2328 2330 2350 2389 2405 2410 2414 2420 2421 2483 2508 2560 2569 2572 2593 2613 2617 2680 2681 2731 2732 2743</p>
-<p><span class="t_tag">动态规划</span>：</p>
-<p>1013 1022 1025 1027 1074 1076 1093 1094 1100 1107 1108 1136 1149 1183 1196 1200 1206 1227 1234 1245 1249 1250 1276 1303 1346 1353 1366 1368 1387 1424 1425 1428 1446 1448 1449 1454 1459 1462 1463 1470 1474 1475 1483 1484 1490 1499 1503 1512 1515 1520 1524 1539 1540 1554 1563 1567 1579 1602 1607 1611 1629 1638 1642 1651 1666 1695 1713 1717 1731 1733 1736 1738 1743 1756 1757 1787 1792 1800 1819 1853 1864 1877 1880 1893 1913 1918 1925 1953 1985 1986 1988 1991 1995 2002 2014 2025 2042 2058 2059 2067 2068 2069 2081 2096 2127 2136 2142 2144 2156 2180 2189 2202 2206 2213 2224 2227 2242 2244 2254 2255 2264 2271 2278 2280 2281 2283 2284 2297 2319 2337 2338 2341 2349 2353 2354 2366 2372 2374 2397 2401 2402 2414 2422 2424 2432 2498 2501 2521 2522 2527 2536 2547 2561 2563 2565 2568 2581 2591 2598 2604 2621 2624 2625 2626 2641 2642 2667 2673 2683 2685 2692 2702 2710 2711 2734 2739 2744 2745</p>
-<p><span class="t_tag">字符串</span>处理问题：</p>
-<p>1002 1004 1005 1008 1016 1019 1046 1048 1049 1050 1051 1052 1053 1054 1055 1056 1061 1063 1086 1089 1091 1094 1099 1101 1103 1111 1115 1117 1118 1120 1123 1125 1126 1129 1130 1136 1139 1143 1150 1151 1152 1154 1159 1160 1168 1170 1177 1178 1179 1180 1181 1184 1188 1189 1190 1191 1192 1195 1197 1243 1295 1315 1325 1392 1582 1698 1707 1720 1729 1808 1831 1854 1858 1905 1963 1969 1970 1984</p>
-<p>搜索问题：</p>
-<p>1002 1003 1008 1031 1038 1039 1041 1060 1063 1069 1080 1083 1088 1089 1103 1144 1155 1190 1204 1217 1229 1249 1297 1301 1344 1355 1361 1412 1415 1435 1443 1457 1479 1505 1518 1530 1593 1649 1671 1675 1686 1709 1711 1719 1742 1832 1909 1935 1940 1977 1984 2031 2033 2043 2053 2093 2103 2110 2128 2165 2233 2241 2252 2276 2288 2355 2372 2374 2412 2416 2418 2437 2440 2442 2466 2471 2475 2477 2509 2515 2531 2534 2580 2588 2594 2631 2633 2688</p>
-<p><span class="t_tag">数论</span>问题：</p>
-<p>1007 1028 1088 1113 1133 1160 1222 1278 1284 1312 1314 1385 1489 1526 1530 1569 1577 1596 1601 1652 1657 1712 1797 1842 1889 1906 1951 2000 2022 2028 2060 2095 2105 2156 2189 2212 2233 2277 2288 2305 2316 2320 2330 2360 2371 2400 2410 2414</p>
-<p>几何问题：</p>
-<p>1010 1032 1037 1041 1081 1090 1104 1123 1139 1165 1199 1426 1439 1460 1472 1597 1608 1648 1683 1910 2015 2102 2107 2157 2228 2234 2318 2335 2347 2352 2361 2370 2375 2394 2403</p>
-<p>树型结构问题：</p>
-<p>1011 1038 1043 1062 1141 1159 1167 1203 1319 1335 1387 1406 1481 1511 1542 1586 1610 1635 1674 1700 1752 1788 1805 1809 1900 1944 1955 1959 1965 1990 2243 2425</p>
-<p>图表问题：</p>
-<p>1015 1030 1082 1084 1085 1105 1119 1127 1130 1140 1203 1311 1377 1420 1453 1465 1492 1589 1798 1802 1919 1935 2016 2236 2238 2281 2326</p>
-<p>匹配问题：</p>
-<p>1002 1059 1077 1137 1140 1157 1197 1231 1364 1516 1525 1576 1626 1654 1882 2067 2192 2221 2223 2333 2362 2404</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="freedomxingyulu.github.io/2017/11/30/slope/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LuXingyu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HelloWorld">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/30/slope/" itemprop="url">slope</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-30T00:00:00+08:00">
-                2017-11-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p> 个人学习。</p>
-<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>最大平均值问题(USACO2003 March Open)</p>
-<h6 id="题意简述"><a href="#题意简述" class="headerlink" title="[题意简述]"></a>[题意简述]</h6><p>读入一列正数，a1,a2,…,a<em>N</em>，以及一个数<em>F</em>。定义，<script type="math/tex">ave(i,j)=\frac{ a_{i}+...+a_{j} }{ j -i+1} (i \leq j)</script> </p>
-<p>求Max{ave(<em>a</em>,<em>b</em>),1≤<em>a</em>,<em>b</em>≤<em>N</em>，且<em>a</em>≤<em>b</em>-<em>F</em>+1}，即求一段长度大于等于<em>F</em>且平均值最大的子串。</p>
-<p>范围：<em>F</em>≤<em>N</em>≤105。</p>
-<h6 id="分析"><a href="#分析" class="headerlink" title="[分析]"></a>[分析]</h6><p>枚举肯定不行。但可以使用图形化。</p>
-<p>令前缀和<script type="math/tex">ave(i,j)=\frac { S_j-S_{i-1}} { j-i+1}</script></p>
-<p>如果将S函数绘在平面直角坐标系内，这就是过点<script type="math/tex">S_i</script>和点<script type="math/tex">S_{i-1}</script>直线的斜率！</p>
-<p>于是问题转化为：平面上已知<em>N</em>+1个点，<script type="math/tex">P_i(i,S_i)</script>，0≤<em>i</em>≤<em>N</em>，求横向距离大于等于<em>F</em>的任意两点连线的最大斜率。</p>
-<p><em>数据如下时</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1 3 8 4 2 6 8</div></pre></td></tr></table></figure>
-<p><em>即求之中的最大斜率</em></p>
-<p><del>显然要维护一个凸包</del></p>
-<p>接下来请移步《浅谈数形结合思想在信息学竞赛中的应用》周源</p>
-<h2 id="斜率优化"><a href="#斜率优化" class="headerlink" title="斜率优化"></a>斜率优化</h2><p>下面正式讲斜率优化。</p>
-<p>对于一类Dp方程式：f[i]=min(f[j]-a[i]∗b[j]+c[j]+d[i])  a[x],b[x],c[x],d[x]都为x的函数，且a单增。</p>
-<pre><code>在 i 时对于最优决策 j : f[i]  = f[j] -a[i] * b[j]+ c[j] +d[i]
-                     (f[i]-d[i])= -a[i] * b[j]+ (c[j]+f[j])             
-                         b    =      -k    *  x  +  y   (y=kx+b)
-</code></pre><p>对于任意j可以表示为图像上一点  J ( b[j],c[j]+f[j] )，目的是求出f[i],因为f[i]的值等于y=kx+b直线的截距。</p>
-<p>添加一个点时，我们就确定了斜率k = a[i]，x、y在已有的点中选择。</p>
-<p>问题转化为：对于一条斜率k = a[i] 的直线（为什么将它作为斜率?），使其至少过一点J(即上文那个任意J点,j&lt;i)，使得该直线的截距最小(就是与y轴焦点的纵坐标值)。那么考虑哪些J点有望成为答案？</p>
-<img src="/2017/11/30/slope/2018050504.svg" alt="p4" title="p4">
-<p><img src="/30/slope/2018050504.svg" alt=""></p>
-<img src="/2017/11/30/slope/2018050505.svg" alt="p5" title="p5">
-<p><img src="/30/slope/2018050505.svg" alt=""></p>
-<p>因为a[i]单调递增，即斜率逐渐变大。所以可以维护一个下凸包。逐渐去除尾部</p>
-<p><img src="/30/slope/2018050503.svg" alt=""></p>
-<img src="/2017/11/30/slope/2018050503.svg" alt="p3" title="p3">
-<p>而加入的点用上面的方式去除不可能成为最优解的解。</p>
-<p>在代码实现“去除尾巴”和“清理头部”中，都是以判断斜率为标准,所以是叫斜率优化</p>
-<h4 id="回归数学"><a href="#回归数学" class="headerlink" title="回归数学"></a>回归数学</h4><p>还记得决策单调性和算斜率的一大堆推导吗？</p>
-<p>决策单调性就是证明了d[i]对每次决策没有影响（既然在求i时，j比k要优，那么之后，即在t(t&gt;i)时，j是否也比k要优）。似乎是在证a单增。这步似乎没什么用特别是对a[i]不单增时更没用</p>
-<p>而算斜率就是从两个J ( b[j],c[j]+f[j] )中算出斜率。</p>
-<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>当a[i]不单增时怎么办？思路还是差不多。不过头部的那些不丢掉。而每次用分治（或暴力枚举），找到那个最合适的。下面是我参考的网址，也有分治的做法。</p>
-<p><a href="https://blog.csdn.net/shiyongyang/article/details/78299894?readlog" target="_blank" rel="external">https://blog.csdn.net/shiyongyang/article/details/78299894?readlog</a></p>
-<p><a href="https://blog.csdn.net/bill_yang_2016/article/details/54667902" target="_blank" rel="external">https://blog.csdn.net/bill_yang_2016/article/details/54667902</a></p>
-<p><a href="http://www.cnblogs.com/gjc1124646822/p/8615011.html" target="_blank" rel="external">http://www.cnblogs.com/gjc1124646822/p/8615011.html</a></p>
-<p><a href="https://blog.csdn.net/lxc779760807/article/details/51366552" target="_blank" rel="external">https://blog.csdn.net/lxc779760807/article/details/51366552</a></p>
-<h2 id="例题增订"><a href="#例题增订" class="headerlink" title="例题增订"></a>例题增订</h2><h3 id="t1"><a href="#t1" class="headerlink" title="t1"></a>t1</h3><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><pre><code>[题目传送门](https://www.luogu.org/problemnew/show/P3195)
-
-P教授要去看奥运，但是他舍不下他的玩具，于是他决定把所有的玩具运到北京。他使用自己的压缩器进行压缩，其可以将任意物品变成一堆，再放到一种特殊的一维容器中。P教授有编号为1⋯N 的 N 件玩具，第 i 件玩具经过压缩后变成一维长度为 C_i .为了方便整理，P教授要求在一个一维容器中的玩具编号是连续的。同时如果一个一维容器中有多个玩具，那么两件玩具之间要加入一个单位长度的填充物，形式地说如果将第 ii 件玩具到第 j 个玩具放到一个容器中，那么容器的长度将为$ x=j-i+\sum\limits_{k=i}^{j}C_k$制作容器的费用与容器的长度有关，根据教授研究，如果容器长度为 x ,其制作费用为 $(X-L)^2$ .其中 L 是一个常量。P教授不关心容器的数目，他可以制作出任意长度的容器，甚至超过 L 。但他希望费用最小.
-</code></pre><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*暴力在此</span></div><div class="line">		s为c的前缀和，i,L,如题。f为dp数组。</div><div class="line">*/</div><div class="line"><span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</div><div class="line">	<span class="keyword">long</span> <span class="keyword">long</span> t=(i<span class="number">-1</span>+s[i]-L);</div><div class="line">	f[i]=t*t;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</div><div class="line">		<span class="keyword">long</span> <span class="keyword">long</span> t=(i-j<span class="number">-1</span>+s[i]-s[j]-L);</div><div class="line">		f[i]=min(f[j]+t*t,f[i]);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<pre><code>发现 $ f[i]=min^{j=0..i-1}(f[j]+(i-j-1+s[i]-s[j]-L )^2)$可以使用斜率优化
-
-把式子分解
-
-$f[i]-(i+s[i]-1-L)^2 = f[j]+(j+s[j])^2  - 2 (i+s[i]-1-L)(j+s[i])$
-
-    b                    =         y          - k             *                         x
-</code></pre><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//代码描述</span></div><div class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">k</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> (<span class="keyword">long</span> <span class="keyword">long</span>)<span class="number">2</span>*(s[i]+i<span class="number">-1</span>-L);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">x</span><span class="params">(<span class="keyword">int</span> j)</span></span>&#123;</div><div class="line">	<span class="keyword">return</span> (<span class="keyword">long</span> <span class="keyword">long</span>)j+s[j];</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">y</span><span class="params">(<span class="keyword">int</span> j)</span></span>&#123;</div><div class="line">	<span class="keyword">return</span> (<span class="keyword">long</span> <span class="keyword">long</span>)(j+s[j])*(j+s[j])+f[j];</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">b</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span>&#123;</div><div class="line">	<span class="keyword">return</span> (<span class="keyword">long</span> <span class="keyword">long</span>)y(j)-k(i)*x(j);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">double</span> <span class="title">slope</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">	<span class="keyword">return</span> (<span class="keyword">double</span>)(y(a)-y(b))/(x(a)-x(b));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//凸包处理</span></div><div class="line">dq[head]=<span class="number">0</span>;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;		</div><div class="line">	<span class="keyword">while</span>(head&gt;tail&amp;&amp;slope(dq[tail+<span class="number">1</span>],dq[tail])&lt;k(i)) tail++;</div><div class="line"></div><div class="line">    f[i]=b(i,dq[tail])+(s[i]+i<span class="number">-1</span>-L)*(s[i]+i<span class="number">-1</span>-L);</div><div class="line"></div><div class="line">	<span class="keyword">while</span>(head&gt;tail&amp;&amp;slope(i,dq[head])&lt;slope(dq[head],dq[head<span class="number">-1</span>])) head--;</div><div class="line">	dq[++head]=i;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1607,7 +1722,7 @@ $f[i]-(i+s[i]-1-L)^2 = f[j]+(j+s[j])^2  - 2 (i+s[i]-1-L)(j+s[i])$
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1629,7 +1744,7 @@ $f[i]-(i+s[i]-1-L)^2 = f[j]+(j+s[j])^2  - 2 (i+s[i]-1-L)(j+s[i])$
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
