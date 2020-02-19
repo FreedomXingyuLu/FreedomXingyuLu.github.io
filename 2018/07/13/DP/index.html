@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="没有套路，需要分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态规划 Dynamic programming">
+<meta property="og:url" content="freedomxingyulu.github.io/2018/07/13/DP/index.html">
+<meta property="og:site_name" content="HelloWorld">
+<meta property="og:description" content="没有套路，需要分析">
+<meta property="og:updated_time" content="2018-08-02T11:52:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动态规划 Dynamic programming">
+<meta name="twitter:description" content="没有套路，需要分析">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="freedomxingyulu.github.io/2018/07/13/DP/"/>
+
+
+
+
+
+  <title>动态规划 Dynamic programming | HelloWorld</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HelloWorld</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="freedomxingyulu.github.io/2018/07/13/DP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LuXingyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HelloWorld">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">动态规划 Dynamic programming</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-13T07:30:15+08:00">
+                2018-07-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="没有套路，需要分析"><a href="#没有套路，需要分析" class="headerlink" title="没有套路，需要分析"></a>没有套路，需要分析</h4><a id="more"></a>
+<h5 id="—-gt-状态压缩"><a href="#—-gt-状态压缩" class="headerlink" title="—-&gt;状态压缩"></a>—-&gt;状态压缩</h5><p>1.设计状态</p>
+<p>2.优化/加速</p>
+<p>[TOC]</p>
+<h2 id="T1-炮"><a href="#T1-炮" class="headerlink" title="T1.炮"></a>T1.炮</h2><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">https://www.lydsy.com/JudgeOnline/problem.php?id=4806</div><div class="line">众所周知，双炮叠叠将是中国象棋中很厉害的一招必杀技。炮吃子时必须隔一个棋子跳吃，即俗称&quot;炮打隔子&quot;。 </div><div class="line">炮跟炮显然不能在一起打起来，于是rly一天借来了许多许多的炮在棋盘上摆了起来……他想知道，在N×M的矩形</div><div class="line">方格中摆若干炮（可以不摆）使其互不吃到的情况下方案数有几种。</div><div class="line">棋子都是相同的。</div><div class="line">Input</div><div class="line">一行，两个正整数N和M。</div><div class="line">N&lt;=100,M&lt;=100</div><div class="line">Output</div><div class="line">一行，输出方案数mod 999983。</div><div class="line">Sample Input</div><div class="line">1 3</div><div class="line">Sample Output</div><div class="line">7</div></pre></td></tr></table></figure>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">http://www.cnblogs.com/zZh-Brim/p/8949340.html</div><div class="line"></div><div class="line">显然一行一列只能放2个或以下棋子， 否则会相互攻击；</div><div class="line">定义f[i][j][k] , 表示前i行， 有j列是放了1个， k列放了两个；</div><div class="line"></div><div class="line">转移方程 ： </div><div class="line">f[i][j][k] += f[i-1][j][k]    什么都没放；</div><div class="line">f[i][j][k] += f[i-1][j-1][k] * (m - (j - 1) - k)   在没放棋子的一列放了一个；</div><div class="line">f[i][j][k] += f[i-1][j+1][k-1] * (j + 1)   在有一个棋子的一列放了一个， 变成了两个；</div><div class="line">f[i][j][k] += f[i-1][j-2][k] * C(m - (j - 2) - k, 2)    在没放棋子的两列分别放两个棋子；</div><div class="line">f[i][j][k] += f[i-1][j][k-1] * j * (m - j  - （k-1） )    一列没棋子，一列有棋子，放上两个棋子；</div><div class="line">f[i][j][k] += f[i-1][j+2][k-2] * C(j + 2, 2)    在放了一个棋子的两列分别放上一个；</div><div class="line">// j-1 j+1 ... 是相对当前[i][j][k]的原来状态</div><div class="line">记得取模；</div></pre></td></tr></table></figure>
+<h4 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> NN 105</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MOD 999983</span></div><div class="line"><span class="meta">#<span class="meta-keyword">undef</span> LO</span></div><div class="line"><span class="keyword">long</span> <span class="keyword">long</span>  f[NN][NN][NN];<span class="comment">//表示前i行， 有j列是放了1个， k列放了两个；</span></div><div class="line"><span class="keyword">int</span> n,m;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="meta">#<span class="meta-keyword">ifdef</span> LO</span></div><div class="line">	freopen(<span class="string">"a.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</div><div class="line">	<span class="meta">#<span class="meta-keyword">endif</span> </span></div><div class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</div><div class="line">	f[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>]=<span class="number">1</span>;</div><div class="line">    </div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;=m;j++)&#123;</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;j+k&lt;=m;k++)&#123;</div><div class="line">				<span class="comment">//不放  </span></div><div class="line">									f[i][j][k]=f[i<span class="number">-1</span>][j][k];</div><div class="line">						f[i][j][k]%=MOD;</div><div class="line">				<span class="comment">//这一行放</span></div><div class="line">				<span class="keyword">if</span>(j&gt;=<span class="number">1</span>)  			f[i][j][k]+=f[i<span class="number">-1</span>][j<span class="number">-1</span>][k]*(m-(j<span class="number">-1</span>)-k);</div><div class="line">                 <span class="comment">//在原来没的地方放  </span></div><div class="line">						f[i][j][k]%=MOD;</div><div class="line">				<span class="keyword">if</span>(j+<span class="number">1</span>&lt;=m&amp;&amp;k&gt;=<span class="number">1</span>)	f[i][j][k]+=f[i<span class="number">-1</span>][j+<span class="number">1</span>][k<span class="number">-1</span>]*(j+<span class="number">1</span>);</div><div class="line">                 <span class="comment">//在原来有的地方放</span></div><div class="line">						f[i][j][k]%=MOD;</div><div class="line">				<span class="comment">//这一行放两个 </span></div><div class="line">				<span class="keyword">if</span>(j+<span class="number">2</span>&lt;=m&amp;&amp;k&gt;=<span class="number">2</span>)	f[i][j][k]+=f[i<span class="number">-1</span>][j+<span class="number">2</span>][k<span class="number">-2</span>]*(j+<span class="number">2</span>)*(j+<span class="number">1</span>)/<span class="number">2</span>;</div><div class="line">                 <span class="comment">//都在原来有的地方放</span></div><div class="line">						f[i][j][k]%=MOD;</div><div class="line">				<span class="keyword">if</span>(j&gt;=<span class="number">2</span>) 			f[i][j][k]+=f[i<span class="number">-1</span>][j<span class="number">-2</span>][k]*(m-(j<span class="number">-2</span>)-k)*(m-(j<span class="number">-1</span>)-k)/<span class="number">2</span>;</div><div class="line">                 <span class="comment">//都在原来没的地方放</span></div><div class="line">						f[i][j][k]%=MOD;</div><div class="line">				<span class="keyword">if</span>(k&gt;=<span class="number">1</span>) 			f[i][j][k]+=f[i<span class="number">-1</span>][j][k<span class="number">-1</span>]*j*(m-j-(k<span class="number">-1</span>)); </div><div class="line">                 <span class="comment">//一行有一行没有 care </span></div><div class="line">						f[i][j][k]%=MOD;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">long</span> <span class="keyword">long</span>  ans=<span class="number">0</span>;</div><div class="line">	    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=m;i++)&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;i+j&lt;=m;j++)&#123;</div><div class="line">            ans+=f[n][i][j];</div><div class="line">            ans%=MOD;</div><div class="line">        &#125;</div><div class="line">		ans%=MOD;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%lld"</span>,ans);</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="T2-音量调节"><a href="#T2-音量调节" class="headerlink" title="T2.音量调节"></a>T2.音量调节</h2><h4 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">		一个吉他手准备参加一场演出。他不喜欢在演出时始终使用同一个音量，所以他决定每一首歌之前他都要改变一次音量。在演出开始之前，他已经做好了一个列表，里面写着在每首歌开始之前他想要改变的音量是多少。每一次改变音量，他可以选择调高也可以调低。</div><div class="line">音量用一个整数描述。输入文件中给定整数beginLevel，代表吉他刚开始的音量，以及整数maxLevel，代表吉他的最大音量。音量不能小于0也不能大于maxLevel。输入文件中还给定了n个整数c1,c2,c3…..cn，表示在第i首歌开始之前吉他手想要改变的音量是多少。</div><div class="line">吉他手想以最大的音量演奏最后一首歌，你的任务是找到这个最大音量是多少。</div><div class="line">Input</div><div class="line">第一行依次为三个整数：n, beginLevel, maxlevel。</div><div class="line">第二行依次为n个整数：c1,c2,c3…..cn。</div><div class="line"></div><div class="line">Output</div><div class="line">输出演奏最后一首歌的最大音量。如果吉他手无法避免音量低于0或者高于maxLevel，输出-1。</div><div class="line"></div><div class="line">Sample Input</div><div class="line">3 5 10               </div><div class="line">5 3 7</div><div class="line">Sample Output</div><div class="line">10</div><div class="line"></div><div class="line">Hint</div><div class="line">1&lt;=N&lt;=50,1&lt;=Ci&lt;=Maxlevel 1&lt;=maxlevel&lt;=1000 </div><div class="line">0&lt;=beginlevel&lt;=maxlevel</div></pre></td></tr></table></figure>
+<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">简单的递推</div></pre></td></tr></table></figure>
+<h4 id="程序-1"><a href="#程序-1" class="headerlink" title="程序"></a>程序</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,beginlevel,maxlevel;</div><div class="line"><span class="keyword">bool</span> f[<span class="number">60</span>][<span class="number">10000</span>];</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="meta">#<span class="meta-keyword">ifdef</span> LO</span></div><div class="line">	freopen(<span class="string">"a.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</div><div class="line">	<span class="meta">#<span class="meta-keyword">endif</span> </span></div><div class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;n,&amp;beginlevel,&amp;maxlevel);</div><div class="line">	f[<span class="number">0</span>][beginlevel]=<span class="number">1</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</div><div class="line">		</div><div class="line">		<span class="keyword">int</span> k;</div><div class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;k);</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;=maxlevel;j++)&#123;</div><div class="line">				<span class="keyword">if</span>(j-k&gt;=<span class="number">0</span>) f[i][j]|=f[i<span class="number">-1</span>][j-k];</div><div class="line">				<span class="keyword">if</span>(j+k&lt;=maxlevel) f[i][j]|=f[i<span class="number">-1</span>][j+k];</div><div class="line">		&#125;</div><div class="line">	<span class="comment">//	for(int j=0;j&lt;=maxlevel;j++) cout&lt;&lt;f[i-1][j];</span></div><div class="line">	<span class="comment">//	cout&lt;&lt;endl;</span></div><div class="line">	&#125;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=maxlevel;i&gt;=<span class="number">0</span>;i--) <span class="keyword">if</span>(f[n][i])&#123;</div><div class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,i);</div><div class="line">		<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"-1"</span>);</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="T3-真话"><a href="#T3-真话" class="headerlink" title="T3.真话"></a>T3.真话</h2><h4 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">一次考试共有 n 个人参加，第 i 个人说：“有 ai 个人分数比我高， bi 个人分数比我低。”问最少有几个人没有说真话 ( 可能有相同的分数 )</div><div class="line"></div><div class="line"></div><div class="line">Input</div><div class="line">第一行一个整数n，接下来n行每行两个整数，第i+1行的两个整数分别代表ai、bi</div><div class="line">Output</div><div class="line">一个整数，表示最少有几个人说谎</div><div class="line"></div><div class="line">Sample Input</div><div class="line">3</div><div class="line">2 0</div><div class="line">0 2</div><div class="line">2 2</div><div class="line">Sample Output</div><div class="line">1</div><div class="line"></div><div class="line">Hint</div><div class="line"></div><div class="line">100%的数据满足： 1≤n≤100000   0≤ai、bi≤n</div></pre></td></tr></table></figure>
+<h4 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">https://www.luogu.org/blog/user9643/solution-p2519</div><div class="line">答案可以转化为 (n-最多说真话的人)，用动态规划。</div><div class="line"></div><div class="line">设f(i) 表示排名前 i 的人中说真话的人的最多数量，考虑f(j)∣j≤i 的转移，可以假定 i,j 排名之间的分数全部相等，这样得出的式子为f(i)=f(j-1)+sum([j,i]) ，其中 sum 表示名次处在这个区间内的数量总数（这些名次的分数都相等）。除此之外还要注意，显然 sum([j,i])≤i−j+1 ，多出去的人说的都一定是假话。</div><div class="line"></div><div class="line">在代码实现上，需注意时间复杂度。显然我们只需要考虑实际存在的名次区间，所以可以用一个链表存储，区间总数就是 n 了。sum 显然不能用布尔数组，可以考虑哈希或者 map.</div></pre></td></tr></table></figure>
+<h4 id="程序-2"><a href="#程序-2" class="headerlink" title="程序"></a>程序</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;map&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">int</span> n,i,j,k,f[<span class="number">100005</span>];</div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;l[<span class="number">100005</span>];</div><div class="line"><span class="built_in">map</span>&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;,<span class="keyword">int</span>&gt;s;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</div><div class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;++i)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;j,&amp;k);</div><div class="line">        ++j,k=n-k;<span class="comment">//转化为分数相同的名次区间</span></div><div class="line">        <span class="keyword">if</span>(j&gt;k)</div><div class="line">            <span class="keyword">continue</span>;<span class="comment">//说话自相矛盾的肯定在说谎</span></div><div class="line">        <span class="keyword">if</span>(++s[make_pair(j,k)]==<span class="number">1</span>)</div><div class="line">            l[k].push_back(j);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;++i)</div><div class="line">    &#123;</div><div class="line">        f[i]=f[i<span class="number">-1</span>];<span class="comment">//f[n] 蕴含 f[n-1] 的结果</span></div><div class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;(<span class="keyword">int</span>)l[i].size();++j)</div><div class="line">            f[i]=max(f[i],f[l[i][j]<span class="number">-1</span>]+min(i-l[i][j]+<span class="number">1</span>,s[make_pair(l[i][j],i)]));</div><div class="line">        								<span class="comment">//不能超过		//相同区间有多少人</span></div><div class="line">    &#125;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,n-f[n]);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="T4-windy数"><a href="#T4-windy数" class="headerlink" title="T4.windy数"></a>T4.windy数</h2><h4 id="题目-3"><a href="#题目-3" class="headerlink" title="题目"></a>题目</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">　　windy定义了一种windy数。不含前导零且相邻两个数字之差至少为2的正整数被称为windy数。 windy想知道，</div><div class="line">在A和B之间，包括A和B，总共有多少个windy数？</div><div class="line"></div><div class="line">Input</div><div class="line">　　包含两个整数，A B。</div><div class="line">Output</div><div class="line">　　一个整数</div><div class="line">　　</div><div class="line">Sample Input</div><div class="line">【输入样例一】</div><div class="line">1 10</div><div class="line">【输入样例二】</div><div class="line">25 50</div><div class="line">Sample Output</div><div class="line">【输出样例一】</div><div class="line">9</div><div class="line">【输出样例二】</div><div class="line">20</div><div class="line">Hint</div><div class="line">【数据规模和约定】</div><div class="line"></div><div class="line">100%的数据，满足 1 &lt;= A &lt;= B &lt;= 2000000000 。</div></pre></td></tr></table></figure>
+<h4 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">方案1.https://blog.csdn.net/chtcht_/article/details/81035582</div><div class="line">方案2.https://blog.csdn.net/ww140142/article/details/46983353</div><div class="line">方案2：</div><div class="line">首先求区间[A，B]等价于求[1，A-1]和[1，B]的答案；</div><div class="line"></div><div class="line">考虑一位一位来；</div><div class="line">定义f[i][j]为首位为j的i位的windy数有几个；</div><div class="line"></div><div class="line">sum[i]为不含前导零的i位的windy数有几个；</div><div class="line"></div><div class="line">那么对于一个数来说，比它位数小的肯定可以加进去；</div><div class="line"></div><div class="line">然后从首位开始枚举，可以将比当前位小，且与上一位相邻数字差大于等于2的f[i][j]加入；</div><div class="line"></div><div class="line">但是如果有某位和上一位差小于2，那就可以break出循环，因为后面已经不会有满足条件的windy数了；</div><div class="line"></div><div class="line">这样求出的实际上是[1，N-1]的值，那么我们将B+1之后两个相减就可以得到答案了；</div><div class="line"></div><div class="line">时间复杂度O(10^3)；</div></pre></td></tr></table></figure>
+<h4 id="程序-3"><a href="#程序-3" class="headerlink" title="程序"></a>程序</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line">方案<span class="number">1</span>：</div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> NN 20</span></div><div class="line"><span class="keyword">int</span> A,B;</div><div class="line"><span class="keyword">int</span> f[NN][NN];</div><div class="line"><span class="keyword">int</span> sum[NN];</div><div class="line"><span class="keyword">int</span> st[NN];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">init</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++) f[<span class="number">1</span>][i]=<span class="number">1</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=<span class="number">10</span>; i++)<span class="comment">//位子</span></div><div class="line">		&#123;</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">10</span>; j++)<span class="comment">//现在状态</span></div><div class="line">				&#123;</div><div class="line">					<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>; k&lt;<span class="number">10</span>; k++)<span class="comment">//过去状态</span></div><div class="line">						&#123;</div><div class="line">							<span class="keyword">if</span>(<span class="built_in">abs</span>(k-j)&lt;<span class="number">2</span>) <span class="keyword">continue</span>;</div><div class="line">							f[i][j]+=f[i<span class="number">-1</span>][k];</div><div class="line">						&#125;</div><div class="line">				&#125;</div><div class="line">		&#125;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">10</span>;i++)&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=<span class="number">10</span>;j++)</div><div class="line">            sum[i]+=f[i][j];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> D)</span></span>&#123;</div><div class="line">    	<span class="keyword">int</span> top=<span class="number">0</span>,ans=<span class="number">0</span>,i=<span class="number">1</span>;</div><div class="line">	<span class="keyword">while</span>(D)&#123;</div><div class="line">	    <span class="keyword">int</span> k=D%<span class="number">10</span>;</div><div class="line">	    ans+=sum[i<span class="number">-1</span>];</div><div class="line">	    st[++top]=k;</div><div class="line">	    i++;</div><div class="line">	    D/=<span class="number">10</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;st[top];i++)</div><div class="line">        ans+=f[top][i];</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=top<span class="number">-1</span>;i&gt;<span class="number">0</span>;i--)&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;st[i];j++)&#123;</div><div class="line">            <span class="keyword">if</span>(<span class="built_in">abs</span>(j-st[i+<span class="number">1</span>])&lt;<span class="number">2</span>) <span class="keyword">continue</span>;</div><div class="line">            ans+=f[i][j];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(<span class="built_in">abs</span>(st[i]-st[i+<span class="number">1</span>])&lt;<span class="number">2</span>)</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> ans;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    freopen(<span class="string">"a.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</div><div class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;A,&amp;B);</div><div class="line">    init();</div><div class="line">    <span class="keyword">int</span> l=calc(A);</div><div class="line">    <span class="keyword">int</span> r=calc(B+<span class="number">1</span>);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,r-l);</div><div class="line">    </div><div class="line">&#125;</div><div class="line"><span class="comment">/*</span></div><div class="line">if(abs(st[i]-st[i+1])&lt;2)不小心打成if(abs(st[i]-st[i+1]&lt;2))找了半天</div></pre></td></tr></table></figure>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>这篇数位dp讲的好<a href="https://blog.csdn.net/wust_zzwh/article/details/52100392" target="_blank" rel="external">https://blog.csdn.net/wust_zzwh/article/details/52100392</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/11/xinde/" rel="next" title="数论心得">
+                <i class="fa fa-chevron-left"></i> 数论心得
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/13/memorytrie/" rel="prev" title="有记忆的Trie">
+                有记忆的Trie <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LuXingyu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#没有套路，需要分析"><span class="nav-number">1.</span> <span class="nav-text">没有套路，需要分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#—-gt-状态压缩"><span class="nav-number">1.1.</span> <span class="nav-text">—->状态压缩</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T1-炮"><span class="nav-number"></span> <span class="nav-text">T1.炮</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题解"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序"><span class="nav-number">3.</span> <span class="nav-text">程序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T2-音量调节"><span class="nav-number"></span> <span class="nav-text">T2.音量调节</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目-1"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题解-1"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序-1"><span class="nav-number">3.</span> <span class="nav-text">程序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T3-真话"><span class="nav-number"></span> <span class="nav-text">T3.真话</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目-2"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题解-2"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序-2"><span class="nav-number">3.</span> <span class="nav-text">程序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T4-windy数"><span class="nav-number"></span> <span class="nav-text">T4.windy数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目-3"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题解-3"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序-3"><span class="nav-number">3.</span> <span class="nav-text">程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他"><span class="nav-number">4.</span> <span class="nav-text">其他</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LuXingyu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
